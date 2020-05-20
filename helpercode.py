@@ -91,7 +91,7 @@ def print_main_memory(main_memory):
         print()
 
 def search_in_main_memory(main_memory,no_of_blocks):
-    address=input()
+    address=input("Enter the address: ")
     x=main_memory[address[:int(math.log2(no_of_blocks))]][address[int(math.log2(no_of_blocks)):]]
     print(x)
     print(binary_to_float(x))

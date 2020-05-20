@@ -76,7 +76,7 @@ def print_cache_memory(cache_memory):
 
 def import_block_from_main_memory(index,no_of_blocks,no_of_lines,cache_memory,main_memory,x=""):
     if(x==""):
-        address=input()
+        address=input("Enter the address: ")
     else:
         address=x
     block_address=address[:int(math.log2(no_of_blocks))]
@@ -92,7 +92,7 @@ def import_block_from_main_memory(index,no_of_blocks,no_of_lines,cache_memory,ma
     return index
 
 def import_block_from_l2_cache_memory(index_l1,index_l2,no_of_blocks,no_of_lines,cache_memory_l1,cache_memory_l2,main_memory):#lines of l2 cache
-    address=input()
+    address=input("Enter the address: ")
     tag=address[:int(math.log2(no_of_blocks))]
     index_l1=import_block_from_main_memory(index_l1,no_of_blocks,no_of_lines/2,cache_memory_l1,main_memory,address)
     flg=0
@@ -106,7 +106,7 @@ def import_block_from_l2_cache_memory(index_l1,index_l2,no_of_blocks,no_of_lines
 
 def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,index_l1,index_l2=0,cache_memory2={},cache_type="l2",address=""):
     if(address==""):
-        address=input()
+        address=input("Enter the address: ")
     tag=address[:int(math.log2(no_of_blocks))]
     block_offset=address[int(math.log2(no_of_blocks)):]
     flag2=0
@@ -171,7 +171,7 @@ def fully_associative_map_cache():
         print("10. Print cache memory L2")
         print("11. Print main memory")
         print("12. exit")
-        a=input()
+        a=input("Enter the option:")
         try:
             a=int(a)
         except:

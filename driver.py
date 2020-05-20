@@ -9,7 +9,7 @@ while(True):
     print("2. Fully Associative Mapping")
     print("3. k-way Associative memory")
     print("4. Exit")
-    a=input()
+    a=input("Enter the option:")
     if(a!=""):
         a=int(a)
     if(a==1):

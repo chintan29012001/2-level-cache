@@ -80,7 +80,7 @@ def input_l2_cache_memory(main_memory,no_of_lines,cache_memory_l1,cache_memory_l
 
 def import_block_from_main_memory(pointers,k,no_of_blocks,no_of_lines,cache_memory,main_memory,x=""):
     if(x==""):
-        address=input()
+        address=input("Enter the address: ")
     else:
         address=x
     set_no=address[int(math.log2(no_of_blocks/k)):int(math.log2(no_of_blocks))]
@@ -95,7 +95,7 @@ def import_block_from_main_memory(pointers,k,no_of_blocks,no_of_lines,cache_memo
         pointers[set_no]=increase_index(pointers[set_no],no_of_lines/k)
 
 def import_block_from_l2_cache_memory(no_of_blocks,no_of_lines,cache_memory_l1,cache_memory_l2,pointers_l1,pointers_l2,k,main_memory):#lines of l2 cache
-    address=input()
+    address=input("Enter the address: ")
     tag=address[:int(math.log2(no_of_blocks/k))]
     line_no=address[int(math.log2(no_of_blocks/k)):int(math.log2(no_of_blocks))]
     import_block_from_main_memory(pointers_l1,k,no_of_blocks,no_of_lines/2,cache_memory_l1,main_memory,address)
@@ -109,7 +109,7 @@ def import_block_from_l2_cache_memory(no_of_blocks,no_of_lines,cache_memory_l1,c
 
 def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,pointers_l1,k,pointers_l2=[],cache_memory_2={},cache_type="l2",address=""):
     if(address==""):
-        address=input()
+        address=input("Enter the address: ")
     tag=address[:int(math.log2(no_of_blocks/k))]
     block_offset=address[int(math.log2(no_of_blocks)):]
     flag2=0
@@ -177,7 +177,7 @@ def k_associative_map_cache():
         print("10. Print cache memory L2")
         print("11. Print main memory")
         print("12. exit")
-        a=input()
+        a=input("Enter the option: ")
         temp=0
         try:
             a=int(a)
