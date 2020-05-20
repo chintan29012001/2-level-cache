@@ -55,7 +55,7 @@ def print_cache_memory(cache_memory):
 
 def import_block_from_main_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,x=""):
     if(x==""):
-        address=input()
+        address=input("Enter the address: ")
     else:
         address=x
     block_address=address[:int(math.log2(no_of_blocks))]
@@ -65,7 +65,7 @@ def import_block_from_main_memory(no_of_blocks,no_of_lines,cache_memory,main_mem
     cache_memory[line_no][tag]=main_memory[block_address]
 
 def import_block_from_l2_cache_memory(no_of_blocks,no_of_lines,cache_memory_l1,cache_memory_l2,main_memory):#lines of l2 cache
-    address=input()
+    address=input("Enter the address: ")
     tag=address[:int(math.log2(no_of_blocks/no_of_lines))]
     line_no=address[int(math.log2(no_of_blocks/no_of_lines)):int(math.log2(no_of_blocks/no_of_lines))+int(math.log2(no_of_lines))]
     import_block_from_main_memory(no_of_blocks,no_of_lines/2,cache_memory_l1,main_memory,address)
@@ -75,7 +75,7 @@ def import_block_from_l2_cache_memory(no_of_blocks,no_of_lines,cache_memory_l1,c
 
 def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,cache_memory2={},cache_type="l2",address=""):
     if(address==""):
-        address=input()
+        address=input("Enter the address: ")
     tag=address[:int(math.log2(no_of_blocks/no_of_lines))]
     line_no=address[int(math.log2(no_of_blocks/no_of_lines)):int(math.log2(no_of_blocks/no_of_lines))+int(math.log2(no_of_lines))]
     block_offset=address[int(math.log2(no_of_blocks/no_of_lines))+int(math.log2(no_of_lines)):]
@@ -142,7 +142,7 @@ def direct_map_cache():
         print("10. Print L2 cache memory")
         print("11. Print main memory")
         print("12. exit")
-        a=input()
+        a=input("Enter the option: ")
         try:
             a=int(a)
         except:
