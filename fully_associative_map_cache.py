@@ -1,6 +1,7 @@
 import math
 from helpercode import *
 #uses first in first out
+#chech write for all mappings
 def initialize_cache_memory(cache_memory,no_of_lines,no_of_blocks,size_of_block,enter_sequence):
     if(cache_memory==[]):
         for i in range(0,int(no_of_lines)):
@@ -13,12 +14,12 @@ def initialize_cache_memory(cache_memory,no_of_lines,no_of_blocks,size_of_block,
 def increase_index(index,no_of_lines):
     index+=1
     index=index%no_of_lines
-    return index
+    return int(index)
 def decrease_index(index,no_of_lines):
     index-=1
     if(index<0):
         index+=no_of_lines
-    return index
+    return int(index)
 
 def input_main_memory(main_memory,cache_memory_l1,cache_memory_l2,no_of_blocks,index_l1,index_l2,no_of_lines,size_of_block,address="",word=""):
     #assuming written in main memory
@@ -41,12 +42,14 @@ def input_cache_memory(main_memory,cache_memory,no_of_blocks, no_of_lines,size_o
     block_offset=address[int(math.log2(no_of_blocks)):]
     m=floating_to_binary(word)
     flag2=0
+    print(" before updating"+str(index))
     for i in range(0,len(cache_memory)):
         if(cache_memory[i][0]==tag):
             cache_memory[i][1][block_offset]=m
             flag2=1
     if(flag2==0 and flag==0):
         index=import_block_from_main_memory(index,no_of_blocks,no_of_lines,cache_memory,main_memory,address)
+        print("after updating" +str(index))
         cache_memory[int(decrease_index(index,no_of_lines))][1][block_offset]=m
     main_memory[address[:int(math.log2(no_of_blocks))]][address[int(math.log2(no_of_blocks)):]]=m
     return index
@@ -88,6 +91,7 @@ def import_block_from_main_memory(index,no_of_blocks,no_of_lines,cache_memory,ma
     if(flag2==0):
         cache_memory[int(index)][0]=block_address
         cache_memory[int(index)][1]=main_memory[block_address]
+        print(no_of_lines)
         index=int(increase_index(index,no_of_lines))
     return index
 
@@ -104,7 +108,7 @@ def import_block_from_l2_cache_memory(index_l1,index_l2,no_of_blocks,no_of_lines
         index_l2=import_block_from_main_memory(index_l2,no_of_blocks,no_of_lines,cache_memory_l2,main_memory,address)
     return index_l1,index_l2
 
-def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,index_l1,index_l2=0,cache_memory2={},cache_type="l2",address=""):
+def search_in_cache_memory_l1(index_l1,index_l2,no_of_blocks,no_of_lines,cache_memory,main_memory,cache_memory2,address=""):
     if(address==""):
         address=input("Enter the address: ")
     tag=address[:int(math.log2(no_of_blocks))]
@@ -119,24 +123,39 @@ def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,ind
             break
     if(flag2==0):
         print("cache miss")
-        if(cache_type=="l1"):
-            index_l1,index_l2=search_in_cache_memory(no_of_blocks,no_of_lines*2,cache_memory2,main_memory,index_l2,0,{},"l2",address)
+        index_l2=search_in_cache_memory_l2(index_l2,no_of_blocks,no_of_lines*2,cache_memory2,main_memory,address)
         block_address=address[:int(math.log2(no_of_blocks))]
         tag=address[:int(math.log2(no_of_blocks))]
-        if(cache_type=="l1"):
-            cache_memory[index_l1][0]=tag
-            cache_memory[index_l1][1]=main_memory[block_address]
-            x=cache_memory[index_l1][1][block_offset]
-            index_l1=int(increase_index(index_l1,no_of_lines))
-        else:
-            cache_memory[index_l2][0]=tag
-            cache_memory[index_l2][1]=main_memory[block_address]
-            x=cache_memory[index_l2][1][block_offset]
-            index_l2=int(increase_index(index_l2,no_of_lines))
-        if(cache_type!="l1"):
+        cache_memory[index_l1][0]=tag
+        cache_memory[index_l1][1]=main_memory[block_address]
+        x=cache_memory[index_l1][1][block_offset]
+        index_l1=int(increase_index(index_l1,no_of_lines))
+    return index_l1,index_l2
+
+def search_in_cache_memory_l2(index_l2,no_of_blocks,no_of_lines,cache_memory,main_memory,address=""):
+    if(address==""):
+        address=input("Enter the address: ")
+    tag=address[:int(math.log2(no_of_blocks))]
+    block_offset=address[int(math.log2(no_of_blocks)):]
+    flag2=0
+    for i in range(0,len(cache_memory)):
+        if(cache_memory[i][0]==tag):
+            x=cache_memory[i][1][block_offset]
+            flag2=1
             print(x)
             print(binary_to_float(x))
-    return index_l1,index_l2
+            break
+    if(flag2==0):
+        print("cache miss")
+        block_address=address[:int(math.log2(no_of_blocks))]
+        tag=address[:int(math.log2(no_of_blocks))]
+        cache_memory[index_l2][0]=tag
+        cache_memory[index_l2][1]=main_memory[block_address]
+        x=cache_memory[index_l2][1][block_offset]
+        index_l2=int(increase_index(index_l2,no_of_lines))
+        print(x)
+        print(binary_to_float(x))
+    return index_l2
 
 
 
@@ -185,9 +204,9 @@ def fully_associative_map_cache():
         elif(a==4):
             search_in_main_memory(main_memory,no_of_blocks)
         elif(a==5):
-            enter_sequence_l1,enter_sequence_l2=search_in_cache_memory(no_of_blocks,no_of_lines/2,cache_memory_l1,main_memory,enter_sequence_l1,enter_sequence_l2,cache_memory_l2,"l1")
+            enter_sequence_l1,enter_sequence_l2=search_in_cache_memory_l1(enter_sequence_l1,enter_sequence_l2,no_of_blocks,no_of_lines/2,cache_memory_l1,main_memory,cache_memory_l2)
         elif(a==6):
-            enter_sequence_l1,enter_sequence_l2=search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory_l2,main_memory,enter_sequence_l2)
+            enter_sequence_l2=search_in_cache_memory_l2(enter_sequence_l2,no_of_blocks,no_of_lines,cache_memory_l2,main_memory)
         elif(a==7):
             enter_sequence_l2=import_block_from_main_memory(enter_sequence_l2,no_of_blocks,no_of_lines,cache_memory_l2,main_memory)
         elif(a==8):
@@ -201,4 +220,4 @@ def fully_associative_map_cache():
         elif(a==12):
             break
 
-
+fully_associative_map_cache()
