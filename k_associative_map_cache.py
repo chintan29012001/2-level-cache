@@ -40,7 +40,19 @@ def input_main_memory(k,main_memory,cache_memory_l1,cache_memory_l2,no_of_blocks
     #assuming written in main memory
     #block address + bloack offset
     if(address==""):
-        address=input("Enter the address where data is to be stored:")
+        s=0
+        for i in main_memory:
+            s=len(main_memory[i])
+            break
+        while(True):
+            address=input("Enter the address: ")
+            if(len(address)==math.log2(s*no_of_blocks)):
+                break
+            else:
+                if(len(address)<math.log2(s*no_of_blocks)):
+                    print("address requires more bits")
+                else:
+                    print("address requires less bits")
         word=float(input("Enter the number:"))#should be an integer or floating point
     input_cache_memory(main_memory,cache_memory_l1,no_of_blocks, no_of_lines/2,size_of_block,pointers_l1,k,1,address,word)
     input_cache_memory(main_memory,cache_memory_l2,no_of_blocks, no_of_lines,size_of_block,pointers_l2,k,1,address,word)
@@ -48,7 +60,19 @@ def input_main_memory(k,main_memory,cache_memory_l1,cache_memory_l2,no_of_blocks
 
 def input_cache_memory(main_memory,cache_memory,no_of_blocks, no_of_lines,size_of_block,pointers,k,flag=1,address="",word=""):
     if(address==""):
-        address=input("Enter the address where data is to be stored:")
+        s=0
+        for i in main_memory:
+            s=len(main_memory[i])
+            break
+        while(True):
+            address=input("Enter the address: ")
+            if(len(address)==math.log2(s*no_of_blocks)):
+                break
+            else:
+                if(len(address)<math.log2(s*no_of_blocks)):
+                    print("address requires more bits")
+                else:
+                    print("address requires less bits")
     if(word==""):
         word=float(input("Enter the number:"))#should be an integer or floating point
     tag=address[:int(math.log2(no_of_blocks/k))]
@@ -66,13 +90,37 @@ def input_cache_memory(main_memory,cache_memory,no_of_blocks, no_of_lines,size_o
     main_memory[address[:int(math.log2(no_of_blocks))]][address[int(math.log2(no_of_blocks)):]]=m
 
 def input_l1_cache_memory(main_memory,no_of_lines,cache_memory_l1,cache_memory_l2,pointers_l1,pointers_l2,k,no_of_blocks,size_of_block):
-    address=input("Enter the address where data is to be stored:")
+    s=0
+    for i in main_memory:
+        s=len(main_memory[i])
+        break
+    while(True):
+        address=input("Enter the address: ")
+        if(len(address)==math.log2(s*no_of_blocks)):
+            break
+        else:
+            if(len(address)<math.log2(s*no_of_blocks)):
+                print("address requires more bits")
+            else:
+                print("address requires less bits")
     word=float(input("Enter the number:"))#should be an integer or floating point
     input_cache_memory(main_memory,cache_memory_l1,no_of_blocks,no_of_lines/2,size_of_block,pointers_l1,k,0,address,word)
     input_cache_memory(main_memory,cache_memory_l2,no_of_blocks,no_of_lines,size_of_block,pointers_l2,k,0,address,word)
 
 def input_l2_cache_memory(main_memory,no_of_lines,cache_memory_l1,cache_memory_l2,pointers_l1,pointers_l2,k,no_of_blocks,size_of_block):
-    address=input("Enter the address where data is to be stored:")
+    s=0
+    for i in main_memory:
+        s=len(main_memory[i])
+        break
+    while(True):
+        address=input("Enter the address: ")
+        if(len(address)==math.log2(s*no_of_blocks)):
+            break
+        else:
+            if(len(address)<math.log2(s*no_of_blocks)):
+                print("address requires more bits")
+            else:
+                print("address requires less bits")
     word=float(input("Enter the number:"))#should be an integer or floating point
     input_cache_memory(main_memory,cache_memory_l2,no_of_blocks,no_of_lines,size_of_block,pointers_l2,k,0,address,word)
     input_cache_memory(main_memory,cache_memory_l1,no_of_blocks,no_of_lines/2,size_of_block,pointers_l1,k,1,address,word)    
@@ -82,7 +130,19 @@ def input_l2_cache_memory(main_memory,no_of_lines,cache_memory_l1,cache_memory_l
 
 def import_block_from_main_memory(pointers,k,no_of_blocks,no_of_lines,cache_memory,main_memory,x=""):
     if(x==""):
-        address=input("Enter the address: ")
+        s=0
+        for i in main_memory:
+            s=len(main_memory[i])
+            break
+        while(True):
+            address=input("Enter the address: ")
+            if(len(address)==math.log2(s*no_of_blocks)):
+                break
+            else:
+                if(len(address)<math.log2(s*no_of_blocks)):
+                    print("address requires more bits")
+                else:
+                    print("address requires less bits")
     else:
         address=x
     set_no=address[int(math.log2(no_of_blocks/k)):int(math.log2(no_of_blocks))]
@@ -97,7 +157,19 @@ def import_block_from_main_memory(pointers,k,no_of_blocks,no_of_lines,cache_memo
         pointers[set_no]=increase_index(pointers[set_no],no_of_lines/k)
 
 def import_block_from_l2_cache_memory(no_of_blocks,no_of_lines,cache_memory_l1,cache_memory_l2,pointers_l1,pointers_l2,k,main_memory):#lines of l2 cache
-    address=input("Enter the address: ")
+    s=0
+    for i in main_memory:
+        s=len(main_memory[i])
+        break
+    while(True):
+        address=input("Enter the address: ")
+        if(len(address)==math.log2(s*no_of_blocks)):
+            break
+        else:
+            if(len(address)<math.log2(s*no_of_blocks)):
+                print("address requires more bits")
+            else:
+                print("address requires less bits")
     tag=address[:int(math.log2(no_of_blocks/k))]
     line_no=address[int(math.log2(no_of_blocks/k)):int(math.log2(no_of_blocks))]
     import_block_from_main_memory(pointers_l1,k,no_of_blocks,no_of_lines/2,cache_memory_l1,main_memory,address)
