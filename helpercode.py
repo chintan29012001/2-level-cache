@@ -11,6 +11,14 @@ def integer_to_binary(x,off):
         ans="0"+ans
     return ans
 
+def address_check(x):
+    f=True
+    for i in x:
+        if(str(i)!="0" and str(i)!="1"):
+            f=False
+            break
+    return f
+
 def decimal_to_binary(x,off):
     ans=""
     for i in range(0,off):
@@ -105,5 +113,3 @@ def search_in_main_memory(main_memory,no_of_blocks):
     print(x)
     print(binary_to_float(x))
 
-
-    
