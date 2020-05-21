@@ -111,12 +111,23 @@ def import_block_from_l2_cache_memory(no_of_blocks,no_of_lines,cache_memory_l1,c
 
 def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,pointers_l1,k,pointers_l2=[],cache_memory_2={},cache_type="l2",address=""):
     if(address==""):
-        address=input("Enter the address: ")
+        s=0
+        for i in main_memory:
+            s=len(main_memory[i])
+            break
+        while(True):
+            address=input("Enter the address: ")
+            if(len(address)==math.log2(s*no_of_blocks)):
+                break
+            else:
+                if(len(address)<math.log2(s*no_of_blocks)):
+                    print("address requires more bits")
+                else:
+                    print("address requires less bits")
     tag=address[:int(math.log2(no_of_blocks/k))]
     block_offset=address[int(math.log2(no_of_blocks)):]
     set_no=address[int(math.log2(no_of_blocks/k)):int(math.log2(no_of_blocks))]
     flag2=0
-    print(cache_type)
     for j in range(0,len(cache_memory[set_no])):
         if(cache_memory[set_no][j][0]==tag):
             x=cache_memory[set_no][j][1][block_offset]
@@ -206,3 +217,4 @@ def k_associative_map_cache():
         elif(a==12):
             break
 
+k_associative_map_cache()
