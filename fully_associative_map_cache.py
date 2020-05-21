@@ -37,19 +37,19 @@ def input_cache_memory(main_memory,cache_memory,no_of_blocks, no_of_lines,size_o
         address=input("Enter the address where data is to be stored:")
     if(word==""):
         word=float(input("Enter the number:"))#should be an integer or floating point
-    print("in input cache")
+    
     tag=address[:int(math.log2(no_of_blocks))]
     block_offset=address[int(math.log2(no_of_blocks)):]
     m=floating_to_binary(word)
     flag2=0
-    print(" before updating"+str(index))
+    
     for i in range(0,len(cache_memory)):
         if(cache_memory[i][0]==tag):
             cache_memory[i][1][block_offset]=m
             flag2=1
     if(flag2==0 and flag==0):
         index=import_block_from_main_memory(index,no_of_blocks,no_of_lines,cache_memory,main_memory,address)
-        print("after updating" +str(index))
+        
         cache_memory[int(decrease_index(index,no_of_lines))][1][block_offset]=m
     main_memory[address[:int(math.log2(no_of_blocks))]][address[int(math.log2(no_of_blocks)):]]=m
     return index
@@ -91,7 +91,7 @@ def import_block_from_main_memory(index,no_of_blocks,no_of_lines,cache_memory,ma
     if(flag2==0):
         cache_memory[int(index)][0]=block_address
         cache_memory[int(index)][1]=main_memory[block_address]
-        print(no_of_lines)
+        
         index=int(increase_index(index,no_of_lines))
     return index
 
@@ -220,4 +220,4 @@ def fully_associative_map_cache():
         elif(a==12):
             break
 
-fully_associative_map_cache()
+

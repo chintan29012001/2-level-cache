@@ -206,4 +206,3 @@ def k_associative_map_cache():
         elif(a==12):
             break
 
-k_associative_map_cache()
