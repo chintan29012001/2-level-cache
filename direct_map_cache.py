@@ -19,7 +19,16 @@ def input_main_memory(main_memory,cache_memory_l1,cache_memory_l2,no_of_blocks, 
     #assuming written in main memory
     #block address + bloack offset
     if(address==""):
-        address=input("Enter the address where data is to be stored:")
+        s=0
+        for i in main_memory:
+            s=len(main_memory[i])
+            break
+        while(True):
+            address=input("Enter the address: ")
+            if(len(address)==math.log2(s*no_of_blocks)):
+                break
+            else:
+                print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
         word=float(input("Enter the number:"))#should be an integer or floating point
     input_cache_memory(main_memory,cache_memory_l1,no_of_blocks, no_of_lines/2,size_of_block,1,address,word)
     input_cache_memory(main_memory,cache_memory_l2,no_of_blocks,no_of_lines,size_of_block,1,address,word)
@@ -27,7 +36,16 @@ def input_main_memory(main_memory,cache_memory_l1,cache_memory_l2,no_of_blocks, 
 
 def input_cache_memory(main_memory,cache_memory,no_of_blocks, no_of_lines,size_of_block,flag=1,address="",word=""):
     if(address==""):
-        address=input("Enter the address where data is to be stored:")
+        s=0
+        for i in main_memory:
+            s=len(main_memory[i])
+            break
+        while(True):
+            address=input("Enter the address: ")
+            if(len(address)==math.log2(s*no_of_blocks)):
+                break
+            else:
+                print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     if(word==""):
         word=float(input("Enter the number:"))#should be an integer or floating point
     tag=address[:int(math.log2(no_of_blocks/no_of_lines))]
@@ -55,7 +73,16 @@ def print_cache_memory(cache_memory):
 
 def import_block_from_main_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,x=""):
     if(x==""):
-        address=input("Enter the address: ")
+        s=0
+        for i in main_memory:
+            s=len(main_memory[i])
+            break
+        while(True):
+            address=input("Enter the address: ")
+            if(len(address)==math.log2(s*no_of_blocks)):
+                break
+            else:
+                print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     else:
         address=x
     block_address=address[:int(math.log2(no_of_blocks))]
@@ -65,7 +92,16 @@ def import_block_from_main_memory(no_of_blocks,no_of_lines,cache_memory,main_mem
     cache_memory[line_no][tag]=main_memory[block_address]
 
 def import_block_from_l2_cache_memory(no_of_blocks,no_of_lines,cache_memory_l1,cache_memory_l2,main_memory):#lines of l2 cache
-    address=input("Enter the address: ")
+    s=0
+    for i in main_memory:
+        s=len(main_memory[i])
+        break
+    while(True):
+        address=input("Enter the address: ")
+        if(len(address)==math.log2(s*no_of_blocks)):
+            break
+        else:
+            print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     tag=address[:int(math.log2(no_of_blocks/no_of_lines))]
     line_no=address[int(math.log2(no_of_blocks/no_of_lines)):int(math.log2(no_of_blocks/no_of_lines))+int(math.log2(no_of_lines))]
     import_block_from_main_memory(no_of_blocks,no_of_lines/2,cache_memory_l1,main_memory,address)
@@ -75,7 +111,16 @@ def import_block_from_l2_cache_memory(no_of_blocks,no_of_lines,cache_memory_l1,c
 
 def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,cache_memory2={},cache_type="l2",address=""):
     if(address==""):
-        address=input("Enter the address: ")
+        s=0
+        for i in main_memory:
+            s=len(main_memory[i])
+            break
+        while(True):
+            address=input("Enter the address: ")
+            if(len(address)==math.log2(s*no_of_blocks)):
+                break
+            else:
+                print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     tag=address[:int(math.log2(no_of_blocks/no_of_lines))]
     line_no=address[int(math.log2(no_of_blocks/no_of_lines)):int(math.log2(no_of_blocks/no_of_lines))+int(math.log2(no_of_lines))]
     block_offset=address[int(math.log2(no_of_blocks/no_of_lines))+int(math.log2(no_of_lines)):]
@@ -98,13 +143,31 @@ def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,cac
             print(binary_to_float(x))
 
 def input_l1_cache_memory(main_memory,no_of_lines,cache_memory_l1,cache_memory_l2,no_of_blocks,size_of_block):
-    address=input("Enter the address where data is to be stored:")
+    s=0
+    for i in main_memory:
+        s=len(main_memory[i])
+        break
+    while(True):
+        address=input("Enter the address: ")
+        if(len(address)==math.log2(s*no_of_blocks)):
+            break
+        else:
+            print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     word=float(input("Enter the number:"))#should be an integer or floating point
     input_cache_memory(main_memory,cache_memory_l1,no_of_blocks,no_of_lines/2,size_of_block,0,address,word)
     input_cache_memory(main_memory,cache_memory_l2,no_of_blocks,no_of_lines,size_of_block,0,address,word)
 
 def input_l2_cache_memory(main_memory,no_of_lines,cache_memory_l1,cache_memory_l2,no_of_blocks,size_of_block):
-    address=input("Enter the address where data is to be stored:")
+    s=0
+    for i in main_memory:
+        s=len(main_memory[i])
+        break
+    while(True):
+        address=input("Enter the address: ")
+        if(len(address)==math.log2(s*no_of_blocks)):
+            break
+        else:
+            print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     word=float(input("Enter the number:"))#should be an integer or floating point
     input_cache_memory(main_memory,cache_memory_l2,no_of_blocks,no_of_lines,size_of_block,0,address,word)
     input_cache_memory(main_memory,cache_memory_l1,no_of_blocks,no_of_lines/2,size_of_block,1,address,word)

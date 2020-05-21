@@ -49,10 +49,7 @@ def input_main_memory(k,main_memory,cache_memory_l1,cache_memory_l2,no_of_blocks
             if(len(address)==math.log2(s*no_of_blocks)):
                 break
             else:
-                if(len(address)<math.log2(s*no_of_blocks)):
-                    print("address requires more bits")
-                else:
-                    print("address requires less bits")
+                print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
         word=float(input("Enter the number:"))#should be an integer or floating point
     input_cache_memory(main_memory,cache_memory_l1,no_of_blocks, no_of_lines/2,size_of_block,pointers_l1,k,1,address,word)
     input_cache_memory(main_memory,cache_memory_l2,no_of_blocks, no_of_lines,size_of_block,pointers_l2,k,1,address,word)
@@ -69,10 +66,7 @@ def input_cache_memory(main_memory,cache_memory,no_of_blocks, no_of_lines,size_o
             if(len(address)==math.log2(s*no_of_blocks)):
                 break
             else:
-                if(len(address)<math.log2(s*no_of_blocks)):
-                    print("address requires more bits")
-                else:
-                    print("address requires less bits")
+                print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     if(word==""):
         word=float(input("Enter the number:"))#should be an integer or floating point
     tag=address[:int(math.log2(no_of_blocks/k))]
@@ -99,10 +93,7 @@ def input_l1_cache_memory(main_memory,no_of_lines,cache_memory_l1,cache_memory_l
         if(len(address)==math.log2(s*no_of_blocks)):
             break
         else:
-            if(len(address)<math.log2(s*no_of_blocks)):
-                print("address requires more bits")
-            else:
-                print("address requires less bits")
+            print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     word=float(input("Enter the number:"))#should be an integer or floating point
     input_cache_memory(main_memory,cache_memory_l1,no_of_blocks,no_of_lines/2,size_of_block,pointers_l1,k,0,address,word)
     input_cache_memory(main_memory,cache_memory_l2,no_of_blocks,no_of_lines,size_of_block,pointers_l2,k,0,address,word)
@@ -117,10 +108,7 @@ def input_l2_cache_memory(main_memory,no_of_lines,cache_memory_l1,cache_memory_l
         if(len(address)==math.log2(s*no_of_blocks)):
             break
         else:
-            if(len(address)<math.log2(s*no_of_blocks)):
-                print("address requires more bits")
-            else:
-                print("address requires less bits")
+            print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     word=float(input("Enter the number:"))#should be an integer or floating point
     input_cache_memory(main_memory,cache_memory_l2,no_of_blocks,no_of_lines,size_of_block,pointers_l2,k,0,address,word)
     input_cache_memory(main_memory,cache_memory_l1,no_of_blocks,no_of_lines/2,size_of_block,pointers_l1,k,1,address,word)    
@@ -139,10 +127,7 @@ def import_block_from_main_memory(pointers,k,no_of_blocks,no_of_lines,cache_memo
             if(len(address)==math.log2(s*no_of_blocks)):
                 break
             else:
-                if(len(address)<math.log2(s*no_of_blocks)):
-                    print("address requires more bits")
-                else:
-                    print("address requires less bits")
+                print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     else:
         address=x
     set_no=address[int(math.log2(no_of_blocks/k)):int(math.log2(no_of_blocks))]
@@ -166,10 +151,7 @@ def import_block_from_l2_cache_memory(no_of_blocks,no_of_lines,cache_memory_l1,c
         if(len(address)==math.log2(s*no_of_blocks)):
             break
         else:
-            if(len(address)<math.log2(s*no_of_blocks)):
-                print("address requires more bits")
-            else:
-                print("address requires less bits")
+            print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     tag=address[:int(math.log2(no_of_blocks/k))]
     line_no=address[int(math.log2(no_of_blocks/k)):int(math.log2(no_of_blocks))]
     import_block_from_main_memory(pointers_l1,k,no_of_blocks,no_of_lines/2,cache_memory_l1,main_memory,address)
@@ -192,10 +174,7 @@ def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,poi
             if(len(address)==math.log2(s*no_of_blocks)):
                 break
             else:
-                if(len(address)<math.log2(s*no_of_blocks)):
-                    print("address requires more bits")
-                else:
-                    print("address requires less bits")
+                print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     tag=address[:int(math.log2(no_of_blocks/k))]
     block_offset=address[int(math.log2(no_of_blocks)):]
     set_no=address[int(math.log2(no_of_blocks/k)):int(math.log2(no_of_blocks))]

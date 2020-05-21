@@ -91,7 +91,16 @@ def print_main_memory(main_memory):
         print()
 
 def search_in_main_memory(main_memory,no_of_blocks):
-    address=input("Enter the address: ")
+    s=0
+    for i in main_memory:
+        s=len(main_memory[i])
+        break
+    while(True):
+        address=input("Enter the address: ")
+        if(len(address)==math.log2(s*no_of_blocks)):
+            break
+        else:
+            print("address requires "+str(int(math.log2(s*no_of_blocks)))+" bits")
     x=main_memory[address[:int(math.log2(no_of_blocks))]][address[int(math.log2(no_of_blocks)):]]
     print(x)
     print(binary_to_float(x))
