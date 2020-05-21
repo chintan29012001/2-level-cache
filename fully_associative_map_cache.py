@@ -256,9 +256,20 @@ def search_in_cache_memory_l2(index_l2,no_of_blocks,no_of_lines,cache_memory,mai
 
 
 def fully_associative_map_cache():
-    size_of_cache=int(input("enter size of cache:"))
-    size_of_block=int(input("enter size of block:"))
-    size_of_main_memory=int(input("enter size of main memory:"))
+    while(True):
+        try:
+            size_of_cache=int(input("enter size of cache:"))
+            size_of_block=int(input("enter size of block:"))
+            size_of_main_memory=int(input("enter size of main memory:"))
+            if(size_of_main_memory<size_of_block):
+                print("size of main memory cannot be smaller than size of block")
+                continue
+            if(size_of_cache<size_of_block):
+                print("size of cache cannot be smaller than size of block")
+                continue
+            break
+        except:
+            print("invalid character in input")
     word_size=64#no of bits in 1 word also type of cache and memory
     no_of_lines=size_of_cache/size_of_block
     no_of_blocks=size_of_main_memory/size_of_block
@@ -315,4 +326,5 @@ def fully_associative_map_cache():
         elif(a==12):
             break
 
+fully_associative_map_cache()
 

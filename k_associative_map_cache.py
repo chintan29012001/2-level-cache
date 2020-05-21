@@ -228,10 +228,28 @@ def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,poi
 
 
 def k_associative_map_cache():
-    size_of_cache=int(input("enter size of cache:"))
-    size_of_block=int(input("enter size of block:"))
-    k=int(input("enter k :"))
-    size_of_main_memory=int(input("enter size of main memory:"))
+    while(True):
+        try:
+            size_of_cache=int(input("enter size of cache:"))
+            size_of_block=int(input("enter size of block:"))
+            size_of_main_memory=int(input("enter size of main memory:"))
+            k=int(input("enter k :"))
+            if(size_of_main_memory<size_of_block):
+                print("size of main memory cannot be smaller than size of block")
+                continue
+            if(size_of_cache<size_of_block):
+                print("size of cache cannot be smaller than size of block")
+                continue
+            if(k>size_of_cache/size_of_block):
+                print("number of sets cannot be greater than number of lines")
+                continue
+            if(k>size_of_main_memory/size_of_block):
+                print("number of sets cannot be greater than number of lines")
+                continue
+            break
+        except:
+            print("invalid character in input")
+
     pointers_l1={}
     pointers_l2={}
     word_size=64#no of bits in 1 word also type of cache and memory

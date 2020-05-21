@@ -193,9 +193,20 @@ def input_l2_cache_memory(main_memory,no_of_lines,cache_memory_l1,cache_memory_l
 
 
 def direct_map_cache():
-    size_of_cache=int(input("enter size of cache:"))
-    size_of_block=int(input("enter size of block:"))
-    size_of_main_memory=int(input("enter size of main memory:"))
+    while(True):
+        try:
+            size_of_cache=int(input("enter size of cache:"))
+            size_of_block=int(input("enter size of block:"))
+            size_of_main_memory=int(input("enter size of main memory:"))
+            if(size_of_main_memory<size_of_block):
+                print("size of main memory cannot be smaller than size of block")
+                continue
+            if(size_of_cache<size_of_block):
+                print("size of cache cannot be smaller than size of block")
+                continue
+            break
+        except:
+            print("invalid character in input")
     word_size=64#no of bits in 1 word also type of cache and memory
     # size_of_cache=2
     # size_of_main_memory=32
