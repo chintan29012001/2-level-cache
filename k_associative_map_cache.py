@@ -20,6 +20,8 @@ def print_cache_memory(cache_memory):
         for j in range(0,len(cache_memory[i])):
             for k in cache_memory[i][j][1]:
                 print(cache_memory[i][j][0]+" "+i+" "+k +" "+cache_memory[i][j][1][k])
+            print()
+        print()
         print()
     # print(cache_memory)
 
@@ -112,15 +114,17 @@ def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,poi
         address=input("Enter the address: ")
     tag=address[:int(math.log2(no_of_blocks/k))]
     block_offset=address[int(math.log2(no_of_blocks)):]
+    set_no=address[int(math.log2(no_of_blocks/k)):int(math.log2(no_of_blocks))]
     flag2=0
-    for i in cache_memory:
-        for j in range(0,len(cache_memory[i])):
-            if(cache_memory[i][j][0]==tag):
-                x=cache_memory[i][j][1][block_offset]
-                flag2=1
-                print(x)
-                print(binary_to_float(x))
-                break
+    print(cache_type)
+    for j in range(0,len(cache_memory[set_no])):
+        if(cache_memory[set_no][j][0]==tag):
+            x=cache_memory[set_no][j][1][block_offset]
+            flag2=1
+            print(x)
+            print(binary_to_float(x))
+            break
+    
     if(flag2==0):
         print("cache miss")
         if(cache_type=="l1"):
@@ -128,16 +132,10 @@ def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,poi
         block_address=address[:int(math.log2(no_of_blocks))]
         tag=address[:int(math.log2(no_of_blocks/k))]
         set_no=address[int(math.log2(no_of_blocks/k)):int(math.log2(no_of_blocks))]
-        if(cache_type=="l1"):
-            cache_memory[set_no][pointers_l1[set_no]][0]=tag
-            cache_memory[set_no][pointers_l1[set_no]][1]=main_memory[block_address]
-            x=cache_memory[set_no][pointers_l1[set_no]][1][block_offset]
-            pointers_l1[set_no]=increase_index(pointers_l1[set_no],no_of_lines/k)
-        else:
-            cache_memory[set_no][pointers_l1[set_no]][0]=tag
-            cache_memory[set_no][pointers_l1[set_no]][1]=main_memory[block_address]
-            x=cache_memory[set_no][pointers_l1[set_no]][1][block_offset]
-            pointers_l1[set_no]=increase_index(pointers_l1[set_no],no_of_lines/k)
+        cache_memory[set_no][pointers_l1[set_no]][0]=tag
+        cache_memory[set_no][pointers_l1[set_no]][1]=main_memory[block_address]
+        x=cache_memory[set_no][pointers_l1[set_no]][1][block_offset]
+        pointers_l1[set_no]=increase_index(pointers_l1[set_no],no_of_lines/k)
         if(cache_type!="l1"):
             print(x)
             print(binary_to_float(x))
@@ -208,3 +206,4 @@ def k_associative_map_cache():
         elif(a==12):
             break
 
+k_associative_map_cache()

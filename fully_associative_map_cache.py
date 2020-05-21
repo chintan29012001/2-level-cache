@@ -102,7 +102,7 @@ def import_block_from_l2_cache_memory(index_l1,index_l2,no_of_blocks,no_of_lines
             break
     if(flg==0):
         index_l2=import_block_from_main_memory(index_l2,no_of_blocks,no_of_lines,cache_memory_l2,main_memory,address)
-    return index_l1,index_l1
+    return index_l1,index_l2
 
 def search_in_cache_memory(no_of_blocks,no_of_lines,cache_memory,main_memory,index_l1,index_l2=0,cache_memory2={},cache_type="l2",address=""):
     if(address==""):
@@ -158,7 +158,7 @@ def fully_associative_map_cache():
     initialize_cache_memory(cache_memory_l1,no_of_lines/2,no_of_blocks,size_of_block,enter_sequence_l1)
     initialize_main_memory(main_memory,no_of_blocks,size_of_block)
     while(True):
-        print()
+        print("Menu")
         print("1. Write to main memory")
         print("2. Write to cache memory L1")
         print("3. Write to cache memory L2")
